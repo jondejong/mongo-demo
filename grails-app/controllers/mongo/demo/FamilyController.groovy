@@ -1,7 +1,5 @@
 package mongo.demo
 
-
-
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -29,6 +27,10 @@ class FamilyController {
             notFound()
             return
         }
+
+        familyInstance.address = new Address(line1: "456 My Street", city: "Minneapolis", state: "MN", postalCode: "55402")
+
+        familyInstance['extraData'] = "More data about us here."
 
         if (familyInstance.hasErrors()) {
             respond familyInstance.errors, view: 'create'
