@@ -1,5 +1,7 @@
 package mongo.demo
 
+import grails.converters.JSON
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -14,6 +16,14 @@ class FamilyController {
     }
 
     def show(Family familyInstance) {
+
+        if(null == familyInstance.id) {
+            if(null != familyInstance.familyName) {
+                def name= familyInstance.familyName
+                familyInstance = Family.findByFamilyName(name)
+            }
+        }
+
         respond familyInstance
     }
 
